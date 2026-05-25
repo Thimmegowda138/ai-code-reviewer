@@ -11,7 +11,7 @@ function App() {
     try {
 
       const response = await axios.post(
-        "http://localhost:8000/review",
+        "https://ai-code-reviewer-backend.onrender.com",
         {
           code: code,
         }
