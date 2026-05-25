@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+# Enable CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -12,11 +13,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Request model
 class CodeRequest(BaseModel):
     code: str
 
+# Home route
+@app.get("/")
+def home():
+    return {
+        "message": "AI Code Reviewer Running"
+    }
+
+# Review route
 @app.post("/review")
-async def review_code(request: CodeRequest):
+async def review(request: CodeRequest):
 
     code = request.code
 

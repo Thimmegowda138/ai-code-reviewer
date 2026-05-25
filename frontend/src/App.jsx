@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import "./App.css";
 
 function App() {
 
@@ -11,45 +12,38 @@ function App() {
     try {
 
       const response = await axios.post(
-        "https://ai-code-reviewer-backend.onrender.com/review",
+        "https://ai-code-reviewer-backend-idxj.onrender.com/review",
         {
           code: code,
         }
       );
 
-      console.log(response.data);
+      console.log("FULL RESPONSE:", response);
 
       setReview(response.data.review);
 
     } catch (error) {
 
-      console.log(error);
+      console.log("ERROR:", error);
 
-      setReview("Error connecting to backend");
-
+      setReview("Backend connection failed");
     }
   };
 
   return (
-    <div
-      style={{
-        padding: "20px",
-        fontFamily: "Arial",
-      }}
-    >
+    <div className="App">
 
       <h1>AI Code Reviewer</h1>
 
       <textarea
-        rows="12"
-        cols="70"
+        rows="10"
+        cols="50"
         placeholder="Paste your code here..."
         value={code}
         onChange={(e) => setCode(e.target.value)}
       />
 
-      <br />
-      <br />
+      <br /><br />
 
       <button onClick={handleReview}>
         Analyze Code
@@ -57,7 +51,16 @@ function App() {
 
       <h2>Review Result:</h2>
 
-      <pre>{review}</pre>
+      <div
+        style={{
+          border: "1px solid gray",
+          padding: "10px",
+          marginTop: "10px",
+          whiteSpace: "pre-wrap",
+        }}
+      >
+        {review}
+      </div>
 
     </div>
   );
